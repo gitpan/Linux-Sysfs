@@ -1,0 +1,173 @@
+package Linux::Sysfs;
+
+use strict;
+use warnings;
+require Exporter;
+
+our $VERSION = '0.01';
+our @ISA = qw(Exporter);
+
+our @EXPORT_OK = qw(
+        $FSTYPE_NAME
+        $PROC_MNTS
+        $BUS_NAME
+        $CLASS_NAME
+        $BLOCK_NAME
+        $DEVICES_NAME
+        $DRIVERS_NAME
+        $MODULE_NAME
+        $NAME_ATTRIBUTE
+        $MOD_PARM_NAME
+        $MOD_SECT_NAME
+        $UNKNOWN
+        $PATH_ENV
+);
+
+our %EXPORT_TAGS = (
+        all => \@EXPORT_OK,
+);
+
+eval {
+    require XSLoader;
+    XSLoader::load('Linux::Sysfs', $VERSION);
+    1;
+} or do {
+    require DynaLoader;
+    push @ISA, 'DynaLoader';
+    Linux::Sysfs->bootstrap($VERSION);
+};
+
+1;
+
+__END__
+=head1 NAME
+
+Linux::Sysfs - Perl interface to libsysfs
+
+=head1 VERSION
+
+Version 0.01
+
+=head1 SYNOPSIS
+
+    use Linux::Sysfs;
+
+    my $path = Linux::Sysfs->get_mnt_path();
+
+    my $module = Linux::Sysfs::Module->open('usbcore');
+    my @parms  = $module->get_sections;
+    $module->close;
+
+=head1 DESCRIPTION
+
+Linux::Sysfs' purpose is to provide a consistent and stable interface for
+querying system device information exposed through the sysfs filesystem. The
+library implements functions for querying filesystem information, such as
+reading directories and files. It also contains routines for working with
+buses, classes, and the device tree.
+
+The functionality of this module is split up between several packages. See the
+other packages under the Linux::Sysfs:: namespace for the full documentation.
+
+=head1 EXPORT
+
+The following libsysfs constants may be imported.
+
+=over
+
+=item $FSTYPE_NAME
+
+=item $PROC_MNTS
+
+=item $BUS_NAME
+
+=item $CLASS_NAME
+
+=item $BLOCK_NAME
+
+=item $DEVICES_NAME
+
+=item $DRIVERS_NAME
+
+=item $NAME_ATTRIBUTE
+
+=item $MOD_PARM_NAME
+
+=item $MOD_SECT_NAME
+
+=item $UNKNOWN
+
+=item $PATH_ENV
+
+=back
+
+All constants will be exported when using the ':all' tag when importing.
+
+=head1 FUNCTIONS
+
+=head2 get_mnt_path
+
+  my $path = Linux::Sysfs->get_mnt_path();
+
+Finds the mount path for filesystem type "sysfs". Returns undef on failure.
+
+=head1 AUTHOR
+
+Florian Ragwitz E<lt>rafl@debian.orgE<gt>
+
+=head1 BUGS
+
+Please report any bugs or feature requests to
+C<bug-linux-sysfs at rt.cpan.org>, or through the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Linux-Sysfs>.
+I will be notified, and then you'll automatically be notified of progress on
+your bug as I make changes.
+
+=head1 SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc Linux::Sysfs
+
+You can also look for information at:
+
+=over 4
+
+=item * AnnoCPAN: Annotated CPAN documentation
+
+L<http://annocpan.org/dist/Linux-Sysfs>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/Linux-Sysfs>
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Linux-Sysfs>
+
+=item * Search CPAN
+
+L<http://search.cpan.org/dist/Linux-Sysfs>
+
+=back
+
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2006 Florian Ragwitz, all rights reserved.
+
+This library is free software; you can redistribute it and/or modify it
+under the terms of the GNU Library General Public License as published
+by the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This library is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Library General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307
+USA.
+
+=cut
