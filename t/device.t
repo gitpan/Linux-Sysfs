@@ -2,18 +2,13 @@
 
 use strict;
 use warnings;
-use Test::More tests => 28;
-use Test::Exception;
 use Linux::Sysfs;
 
-require 't/common.pl';
+BEGIN {
+    require 't/common.pl';
+}
 
-my $val_dev_path = '/sys/devices/pci0000:00/0000:00:00.0';
-my $val_dev_attr = 'vendor';
-my $val_bus_name = 'pci';
-my $val_bus_id   = '0000:00:00.0';
-my $inval_name   = 'invalid_name';
-my $inval_path   = '/sys/invalid/path';
+plan tests => 28;
 
 # close
 {

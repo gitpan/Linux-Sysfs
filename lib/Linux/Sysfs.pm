@@ -4,8 +4,8 @@ use strict;
 use warnings;
 require Exporter;
 
-our $VERSION = '0.01';
-our @ISA = qw(Exporter);
+our $VERSION = '0.02';
+our @ISA     = qw(Exporter);
 
 our @EXPORT_OK = qw(
         $FSTYPE_NAME
@@ -23,13 +23,11 @@ our @EXPORT_OK = qw(
         $PATH_ENV
 );
 
-our %EXPORT_TAGS = (
-        all => \@EXPORT_OK,
-);
+our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
 eval {
     require XSLoader;
-    XSLoader::load('Linux::Sysfs', $VERSION);
+    XSLoader::load( 'Linux::Sysfs', $VERSION );
     1;
 } or do {
     require DynaLoader;
@@ -46,7 +44,7 @@ Linux::Sysfs - Perl interface to libsysfs
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =head1 SYNOPSIS
 
@@ -111,6 +109,38 @@ All constants will be exported when using the ':all' tag when importing.
 
 Finds the mount path for filesystem type "sysfs". Returns undef on failure.
 
+=head1 DEPENDENCIES
+
+Linux::Sysfs requires libsysfs version 2.0.0 or later. See
+L<http://linux-diag.sourceforge.net/Sysfsutils.html>.
+
+=head1 INCOMPATIBILITIES
+
+This module currently doesn't work with any version of libsysfs smaller than
+2.0.0.
+
+=head1 BUGS AND LIMITATIONS
+
+In the current implementation of Linux::Sysfs it's not possible to free the
+objects when they get destroyed automatically. Therefor you should care about
+calling B<close()> for each object when you don't need it anymore.
+
+=head1 SEE ALSO
+
+L<Linux::Sysfs::Attribute>
+
+L<Linux::Sysfs::Bus>
+
+L<Linux::Sysfs::Class>
+
+L<Linux::Sysfs::ClassDevice>
+
+L<Linux::Sysfs::Device>
+
+L<Linux::Sysfs::Driver>
+
+L<Linux::Sysfs::Module>
+
 =head1 AUTHOR
 
 Florian Ragwitz E<lt>rafl@debian.orgE<gt>
@@ -151,7 +181,7 @@ L<http://search.cpan.org/dist/Linux-Sysfs>
 
 =back
 
-=head1 COPYRIGHT & LICENSE
+=head1 LICENSE AND COPYRIGHT
 
 Copyright 2006 Florian Ragwitz, all rights reserved.
 

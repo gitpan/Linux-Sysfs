@@ -2,16 +2,13 @@
 
 use strict;
 use warnings;
-use Test::More tests => 16;
-use Test::Exception;
 use Linux::Sysfs;
 
-require 't/common.pl';
+BEGIN {
+    require 't/common.pl';
+}
 
-my $val_class          = 'net';
-my $val_class_dev      = 'eth0';
-my $val_class_dev_path = '/sys/class/net/eth0';
-my $inval_name         = 'invalid_name';
+plan tests => 16;
 
 # close
 {
@@ -37,7 +34,7 @@ my $inval_name         = 'invalid_name';
     my $class = Linux::Sysfs::Class->open($val_class);
     isa_ok( $class, 'Linux::Sysfs::Class' );
 
-    diag(sprintf 'Class %s is at %s', $class->name, $class->path);
+    debug(sprintf 'Class %s is at %s', $class->name, $class->path);
     $class->close;
 }
 

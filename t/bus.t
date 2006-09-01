@@ -2,16 +2,13 @@
 
 use strict;
 use warnings;
-use Test::More tests => 25;
-use Test::Exception;
 use Linux::Sysfs;
 
-require 't/common.pl';
+BEGIN {
+    require 't/common.pl';
+}
 
-my $val_bus_name = 'pci';
-my $val_bus_id   = '0000:00:00.0';
-my $val_drv_name = 'tg3';
-my $invalid_name = 'invalid_name';
+plan tests => 25;
 
 # close
 {
@@ -37,13 +34,13 @@ my $invalid_name = 'invalid_name';
     my $bus = Linux::Sysfs::Bus->open($val_bus_name);
     isa_ok( $bus, 'Linux::Sysfs::Bus' );
 
-    diag(sprintf 'Bus = %s, path = %s', $bus->name, $bus->path);
+    debug(sprintf 'Bus = %s, path = %s', $bus->name, $bus->path);
 
     $bus->close;
 }
 
 {
-    my $bus = Linux::Sysfs::Bus->open($invalid_name);
+    my $bus = Linux::Sysfs::Bus->open($inval_name);
     ok( !defined $bus, 'open with invalid name' );
 }
 
@@ -57,7 +54,7 @@ my $invalid_name = 'invalid_name';
     isa_ok( $dev, 'Linux::Sysfs::Device' ); #TODO: errno?
     show_device($dev);
 
-    $dev = $bus->get_device($invalid_name);
+    $dev = $bus->get_device($inval_name);
     ok( !defined $dev, 'get_device with invalid id' );
 
     {
@@ -75,7 +72,7 @@ my $invalid_name = 'invalid_name';
     my $dev = $bus->get_device($val_bus_name);
     ok( !defined $dev, 'get_device on invalid bus' );
 
-    $dev = $bus->get_device($invalid_name);
+    $dev = $bus->get_device($inval_name);
     ok( !defined $dev, 'get_device on invalid bus with invalid id' );
 
     {
@@ -94,7 +91,7 @@ my $invalid_name = 'invalid_name';
     my $drv = $bus->get_driver($val_drv_name);
     isa_ok( $drv, 'Linux::Sysfs::Driver' ); #TODO: errno?
 
-    $drv = $bus->get_driver($invalid_name);
+    $drv = $bus->get_driver($inval_name);
     ok( !defined $drv, 'get_driver with invalid name' );
 
     TODO: {
@@ -112,11 +109,14 @@ my $invalid_name = 'invalid_name';
     my $drv = $bus->get_driver($val_drv_name);
     ok( !defined $drv, 'get_driver on invalid bus' );
 
-    $drv = $bus->get_driver($invalid_name);
+    $drv = $bus->get_driver($inval_name);
     ok( !defined $drv, 'get_driver on invalid bus with invalid name' );
 
-    $drv = $bus->get_driver(undef);
-    ok( !defined $drv, 'get_driver on invalid bus with undefined name' );
+    {
+        no warnings 'uninitialized';
+        $drv = $bus->get_driver(undef);
+        ok( !defined $drv, 'get_driver on invalid bus with undefined name' );
+    }
 }
 
 

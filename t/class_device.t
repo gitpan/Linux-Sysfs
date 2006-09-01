@@ -2,19 +2,13 @@
 
 use strict;
 use warnings;
-use Test::More tests => 29;
-use Test::Exception;
 use Linux::Sysfs;
 
-require 't/common.pl';
+BEGIN {
+    require 't/common.pl';
+}
 
-my $val_block_class_dev_path = '/sys/block/sda/sda1';
-my $val_class_dev_attr       = 'type';
-my $val_class_dev_path       = '/sys/class/net/eth0';
-my $val_class_dev            = 'eth0';
-my $val_class                = 'net';
-my $inval_path               = '/sys/invalid/path';
-my $inval_name               = 'invalid_name';
+plan tests => 29;
 
 # close
 {

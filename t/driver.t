@@ -2,18 +2,13 @@
 
 use strict;
 use warnings;
-use Test::More tests => 27;
-use Test::Exception;
 use Linux::Sysfs;
 
-require 't/common.pl';
+BEGIN {
+    require 't/common.pl';
+}
 
-my $val_drv_bus_name  = 'pci';
-my $val_drv_attr_name = 'new_id';
-my $val_drv_path      = '/sys/bus/pci/drivers/tg3';
-my $val_drv_name      = 'tg3';
-my $inval_path        = '/sys/invalid/path';
-my $inval_name        = 'invalid_name';
+plan tests => 27;
 
 # close
 {

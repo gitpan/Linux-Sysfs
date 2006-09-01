@@ -2,15 +2,13 @@
 
 use strict;
 use warnings;
-use Test::More tests => 14;
-use Test::Exception;
 use Linux::Sysfs;
 
-require 't/common.pl';
+BEGIN {
+    require 't/common.pl';
+}
 
-my $inval_path          = '/sys/invalid/path';
-my $val_file_path       = '/sys/block/sda/dev';
-my $val_write_attr_path = '/sys/class/net/eth0/tx_queue_len';
+plan tests => 14;
 
 # close 
 {
@@ -36,7 +34,7 @@ my $val_write_attr_path = '/sys/class/net/eth0/tx_queue_len';
     my $attr = Linux::Sysfs::Attribute->open($val_file_path);
     isa_ok( $attr, 'Linux::Sysfs::Attribute' );
 
-    diag(sprintf "Attrib name = %s, at %s", $attr->name, $attr->path);
+    debug(sprintf "Attrib name = %s, at %s", $attr->name, $attr->path);
 
     $attr->close;
 }
@@ -81,7 +79,7 @@ my $val_write_attr_path = '/sys/class/net/eth0/tx_queue_len';
     my $ret = $attr->write($old_value);
     ok( $ret, 'write' );
 
-    diag(sprintf 'Attribute at %s now has value %s', $attr->path, $attr->value)
+    debug(sprintf 'Attribute at %s now has value %s', $attr->path, $attr->value)
         if $ret;
 
     $ret = $attr->write('this should not get copied in the attrib');

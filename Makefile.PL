@@ -10,7 +10,7 @@ WriteMakefile(
     XSPROTOARG          => '-noprototypes',
     LIBS                => [qw( -lsysfs )],
     INC                 => '-Ic',
-    CCFLAGS             => '-Wall -Werror',
+    CCFLAGS             => '-Wall',
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,

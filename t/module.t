@@ -2,31 +2,22 @@
 
 use strict;
 use warnings;
-use Test::More tests => 35;
-use Test::Exception;
 use Linux::Sysfs;
 
-require 't/common.pl';
+BEGIN {
+    require 't/common.pl';
+}
 
-my $val_mod_path      = '/sys/module/usbcore';
-my $val_mod_name      = 'usbcore';
-my $val_mod_param     = 'blinkenlights';
-my $val_mod_section   = '__versions';
-my $val_mod_attr_name = 'refcnt';
-my $inval_path        = '/sys/invalid/path';
-my $inval_name        = 'invalid_name';
+plan tests => 36;
 
 # close
-SKIP: {
-    skip 'Segfaults. Probably a libsysfs bug', 1;
+{
     my $module = Linux::Sysfs::Module->open_path($val_mod_path);
     isa_ok( $module, 'Linux::Sysfs::Module' );
 
     lives_ok(sub {
             $module->close;
     }, 'close');
-
-    $module->close;
 }
 
 {
@@ -170,7 +161,7 @@ TODO: {
     my $module = Linux::Sysfs::Module->open_path($val_mod_path);
     isa_ok( $module, 'Linux::Sysfs::Module' );
 
-    my $parm = $module->get_parm($val_mod_param);
+    my $parm = $module->get_parm($val_mod_parm);
     isa_ok( $parm, 'Linux::Sysfs::Attribute' ); #TODO: errno
 
     show_attribute($parm);
@@ -190,7 +181,7 @@ TODO: {
 {
     my $module = bless \(my $s), 'Linux::Sysfs::Module';
 
-    my $parm = $module->get_parm($val_mod_param);
+    my $parm = $module->get_parm($val_mod_parm);
     ok( !defined $parm, 'get_parm on invalid module' );
 
     $parm = $module->get_parm($inval_name);

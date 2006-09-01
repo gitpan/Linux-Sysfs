@@ -10,6 +10,11 @@ To install this module, run the following commands:
     make install
 
 
+To get some debugging information during the test run do:
+
+    make test TEST_DEBUG=1
+
+
 SUPPORT AND DOCUMENTATION
 
 After installing, you can find documentation for this module with the perldoc command.
