@@ -69,7 +69,9 @@ plan tests => 14;
 
 
 # write
-{
+SKIP: {
+    skip 'No write permissions to sysfs', 5 unless $val_write_attr_path;
+
     my $attr = Linux::Sysfs::Attribute->open($val_write_attr_path);
     isa_ok( $attr, 'Linux::Sysfs::Attribute' );
     ok( $attr->read, 'read' );

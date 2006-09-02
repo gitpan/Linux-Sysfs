@@ -12,6 +12,7 @@ WriteMakefile(
     INC                 => '-Ic',
     CCFLAGS             => '-Wall',
     PL_FILES            => {},
+    EXE_FILES           => ['script/systool.pl'],
     PREREQ_PM => {
         'Test::More' => 0,
     },

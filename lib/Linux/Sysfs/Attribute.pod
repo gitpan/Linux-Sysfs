@@ -28,7 +28,9 @@ only, write only, or read and write. File data can be ASCII and binary.
 
 =head1 METHODS
 
-=head1 open
+=over
+
+=item B<open>
 
     my $attr = Linux::Sysfs::Attribute->open($path);
 
@@ -36,13 +38,13 @@ Opens up a file in sysfs and creates a Linux::Sysfs::Attribute instance. File
 isn't read with this function. C<$path> is the File/Attribute's path. Returns a
 Linux::Sysfs::Attribute object on success or undef on failure.
 
-=head1 close
+=item B<close>
 
     $attr->close;
 
 Cleans up and closes sysfs_attribute structure.
 
-=head1 read
+=item B<read>
 
     $attr->read or die 'read failed';
 
@@ -51,7 +53,7 @@ is a pagesize, function reads in up to a page from the file and stores it in
 Linux::Sysfs::Attribute object to be retrieved with C<$attr-E<gt>value>.
 Returns something true on success or something false on failure.
 
-=head1 write
+=item B<write>
 
     $attr->write($value) or die 'write failed';
 
@@ -60,36 +62,38 @@ writable, and writes the new value to the attribute. The user needs to supply
 the C<$value> to be written. Returns something true on success or something
 false on failure.
 
-=head1 value
+=item B<value>
 
     my $value = $attr->value;
 
 Returns the value of the attribute. You need to call B<read()> or B<write()>
 first to use this method.
 
-=head1 can_read
+=item B<can_read>
 
 	my $can_read = $attr->can_read;
 
 Returns something true if the attribute is readable, false otherwise.
 
-=head1 can_write
+=item B<can_write>
 
 	my $can_write = $attr->can_write;
 
 Returns something true if the attribute is writable, false otherwise.
 
-=head1 name
+=item B<name>
 
 	my $name = $attr->name;
 
 Returns the attributes name.
 
-=head1 path
+=item B<path>
 
     my $path = $attr->path;
 
 The path returned by this method represents the file/attribute's full path.
+
+=back
 
 =head1 AUTHOR
 

@@ -105,6 +105,8 @@ plan tests => 28;
     my $dev = Linux::Sysfs::Device->open_path($val_dev_path);
     isa_ok( $dev, 'Linux::Sysfs::Device' );
 
+    use Data::Dumper;
+#    diag(Dumper($dev->get_attr('config')));
     my $attr = $dev->get_attr($val_dev_attr);
     isa_ok( $attr, 'Linux::Sysfs::Attribute' ); #TODO: errno
 

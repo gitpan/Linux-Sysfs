@@ -4,7 +4,7 @@ use strict;
 use warnings;
 require Exporter;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 our @ISA     = qw(Exporter);
 
 our @EXPORT_OK = qw(
@@ -44,7 +44,7 @@ Linux::Sysfs - Perl interface to libsysfs
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =head1 SYNOPSIS
 
@@ -54,6 +54,7 @@ Version 0.02
 
     my $module = Linux::Sysfs::Module->open('usbcore');
     my @parms  = $module->get_sections;
+
     $module->close;
 
 =head1 DESCRIPTION
@@ -73,29 +74,31 @@ The following libsysfs constants may be imported.
 
 =over
 
-=item $FSTYPE_NAME
+=item C<$FSTYPE_NAME>
 
-=item $PROC_MNTS
+=item C<$PROC_MNTS>
 
-=item $BUS_NAME
+=item C<$BUS_NAME>
 
-=item $CLASS_NAME
+=item C<$CLASS_NAME>
 
-=item $BLOCK_NAME
+=item C<$BLOCK_NAME>
 
-=item $DEVICES_NAME
+=item C<$DEVICES_NAME>
 
-=item $DRIVERS_NAME
+=item C<$DRIVERS_NAME>
 
-=item $NAME_ATTRIBUTE
+=item C<$MODULE_NAME>
 
-=item $MOD_PARM_NAME
+=item C<$NAME_ATTRIBUTE>
 
-=item $MOD_SECT_NAME
+=item C<$MOD_PARM_NAME>
 
-=item $UNKNOWN
+=item C<$MOD_SECT_NAME>
 
-=item $PATH_ENV
+=item C<$UNKNOWN>
+
+=item C<$PATH_ENV>
 
 =back
 
@@ -148,10 +151,10 @@ Florian Ragwitz E<lt>rafl@debian.orgE<gt>
 =head1 BUGS
 
 Please report any bugs or feature requests to
-C<bug-linux-sysfs at rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Linux-Sysfs>.
-I will be notified, and then you'll automatically be notified of progress on
-your bug as I make changes.
+E<lt>bug-linux-sysfs@rt.cpan.orgE<gt>, or through the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Linux-Sysfs>.  I will be
+notified, and then you'll automatically be notified of progress on your bug as
+I make changes.
 
 =head1 SUPPORT
 
